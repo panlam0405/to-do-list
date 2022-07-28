@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import { v4 } from "uuid";
 
 
 export class TodoForm extends Component {
@@ -7,6 +8,23 @@ export class TodoForm extends Component {
         this.state = {
             todoContent: ''
         }
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleChange(e) {
+        this.setState(
+            {
+                [e.target.name]: e.target.value
+            }
+        )
+    }
+
+    handleSubmit(e) {
+        e.preventDefault();
+        let todo = this.state;
+        this.props.addTodo({...todo, id:v4()});
+        this.setState({ todoContent : ""} );
     }
 
     render(){
@@ -14,9 +32,15 @@ export class TodoForm extends Component {
             <div className="todo-form">
                 <h1>New Todo!</h1>
                 <div className="add-todo">
-                    <form>
-                        <label htmlFor="todo">
-                            <input id="todo" placeholder="Add Todo"  />
+                    <form onSubmit={this.handleSubmit}>
+                        <label htmlFor="todo">New Todo
+                            <input
+                                type='text'
+                                name='todoContent'
+                                id="todo"
+                                value={this.state.todoContent}
+                                placeholder="Add Todo"
+                                onChange={this.handleChange}/>
                         </label>
                         <button>Add Todo</button>
                     </form>
