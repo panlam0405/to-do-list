@@ -23,7 +23,7 @@ export class TodoForm extends Component {
     handleSubmit(e) {
         e.preventDefault();
         let todo = this.state;
-        this.props.addTodo({...todo, id:v4()});
+        this.props.addTodo({...todo, id:v4(), completed: false});
         this.setState({ todoContent : ""} );
     }
 
