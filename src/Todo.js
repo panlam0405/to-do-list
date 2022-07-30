@@ -43,18 +43,23 @@ export class Todo extends Component {
     render() {
         let result;
         if (this.state.isEditing) {
-            result =(<div>
-                <form onSubmit={this.handleSubmit}>
+            result =(<div className="todo">
+                <form className="todo-edit-form" onSubmit={this.handleSubmit}>
                     <input type='text' name='content' onChange={this.handleChange} value={this.state.content } />
                     <button> Save</button>
                 </form>
             </div>)
         } else {
-             result=(<li className={this.props.completed ? 'completed todo' : 'todo'}>
-                <span onClick={this.handleComplete}>{this.props.todoContent}</span>
+            result = (
+                <div className="todo">
+                <li className={this.props.completed ? 'completed task' : 'task'}>
+                        <span onClick={this.handleComplete}>{this.props.todoContent}</span></li>
+                        <div className="todo-buttons">
                 <button onClick={this.toggleForm}><FontAwesomeIcon icon={ faPencil } /></button>
                 <button onClick={this.handleRemove}><FontAwesomeIcon icon={ faTrashCan } /></button>
-            </li>)
+                        </div>
+            
+            </div>)
         }
         return result
     }
